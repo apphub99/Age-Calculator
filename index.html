@@ -1,0 +1,469 @@
+<div id="pb-age-calculator">
+  <style>
+    #pb-age-calculator {
+      --green: #16865b;
+      --dark: #126746;
+      --light: #eaf7f0;
+      font-family: Arial, sans-serif;
+      color: #26352d;
+      max-width: 760px;
+      margin: 25px auto;
+      box-sizing: border-box;
+    }
+
+    #pb-age-calculator * {
+      box-sizing: border-box;
+    }
+
+    #pb-age-calculator .pb-card {
+      background: #fff;
+      border: 1px solid #e0eae3;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 5px 22px rgba(0,0,0,.06);
+    }
+
+    #pb-age-calculator .pb-heading {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    #pb-age-calculator .pb-heading h2 {
+      color: var(--dark);
+      font-size: 27px;
+      margin: 0 0 9px;
+    }
+
+    #pb-age-calculator .pb-heading p {
+      color: #68766e;
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    #pb-age-calculator label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+      font-size: 15px;
+    }
+
+    #pb-age-calculator input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccd9d0;
+      border-radius: 9px;
+      font-size: 16px;
+      background: #fff;
+      color: #26352d;
+      min-height: 48px;
+    }
+
+    #pb-age-calculator input:focus {
+      outline: 2px solid var(--green);
+      border-color: var(--green);
+    }
+
+    #pb-age-calculator .pb-input {
+      margin-bottom: 19px;
+    }
+
+    #pb-age-calculator .pb-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    #pb-age-calculator button {
+      border: none;
+      border-radius: 9px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 46px;
+    }
+
+    #pb-age-calculator .pb-calculate {
+      background: var(--green);
+      color: white;
+      flex: 1;
+    }
+
+    #pb-age-calculator .pb-calculate:hover {
+      background: var(--dark);
+    }
+
+    #pb-age-calculator .pb-reset {
+      background: #edf1ee;
+      color: #34463a;
+    }
+
+    #pb-age-calculator .pb-error {
+      color: #c62828;
+      font-size: 14px;
+      margin-top: 13px;
+      display: none;
+    }
+
+    #pb-age-calculator .pb-results {
+      display: none;
+      margin-top: 24px;
+    }
+
+    #pb-age-calculator .pb-age-display {
+      background: var(--light);
+      border-radius: 13px;
+      padding: 22px 12px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    #pb-age-calculator .pb-age-display h3 {
+      color: var(--dark);
+      margin: 0 0 15px;
+      font-size: 19px;
+    }
+
+    #pb-age-calculator .pb-age-numbers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    #pb-age-calculator .pb-age-number {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 5px;
+    }
+
+    #pb-age-calculator .pb-age-number strong {
+      display: block;
+      color: var(--green);
+      font-size: 29px;
+      margin-bottom: 5px;
+    }
+
+    #pb-age-calculator .pb-age-number span {
+      color: #65756a;
+      font-size: 13px;
+    }
+
+    #pb-age-calculator .pb-result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+    }
+
+    #pb-age-calculator .pb-result-item {
+      background: #f7faf8;
+      border: 1px solid #e5eee8;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    #pb-age-calculator .pb-result-item span {
+      display: block;
+      color: #718078;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    #pb-age-calculator .pb-result-item strong {
+      color: #245b40;
+      font-size: 17px;
+      overflow-wrap: anywhere;
+    }
+
+    #pb-age-calculator .pb-disclaimer {
+      color: #78847c;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #pb-age-calculator .pb-footer {
+      text-align: center;
+      color: #819087;
+      font-size: 12px;
+      margin-top: 18px;
+    }
+
+    @media(max-width: 480px) {
+      #pb-age-calculator .pb-card {
+        padding: 18px;
+      }
+
+      #pb-age-calculator .pb-heading h2 {
+        font-size: 23px;
+      }
+
+      #pb-age-calculator .pb-result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #pb-age-calculator .pb-age-number strong {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <div class="pb-card">
+
+    <div class="pb-heading">
+      <h2>🎂 Age Calculator</h2>
+      <p>Calculate exact age in years, months, and days for any chosen date.</p>
+    </div>
+
+    <div class="pb-input">
+      <label for="pb-dob">Enter Your Date of Birth</label>
+      <input type="date" id="pb-dob">
+    </div>
+
+    <div class="pb-input">
+      <label for="pb-target-date">Calculate Age As Of</label>
+      <input type="date" id="pb-target-date">
+    </div>
+
+    <div class="pb-buttons">
+      <button type="button" class="pb-calculate" id="pb-calculate">
+        Calculate Age
+      </button>
+      <button type="button" class="pb-reset" id="pb-reset">
+        Reset
+      </button>
+    </div>
+
+    <div class="pb-error" id="pb-error" role="alert"></div>
+
+    <div class="pb-results" id="pb-results" aria-live="polite">
+
+      <div class="pb-age-display">
+        <h3>Your Age <span id="pb-target-label"></span></h3>
+
+        <div class="pb-age-numbers">
+          <div class="pb-age-number">
+            <strong id="pb-years">0</strong>
+            <span>Years</span>
+          </div>
+
+          <div class="pb-age-number">
+            <strong id="pb-months">0</strong>
+            <span>Months</span>
+          </div>
+
+          <div class="pb-age-number">
+            <strong id="pb-days">0</strong>
+            <span>Days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pb-result-grid">
+
+        <div class="pb-result-item">
+          <span>Total Days Lived</span>
+          <strong id="pb-total-days">0</strong>
+        </div>
+
+        <div class="pb-result-item">
+          <span>Total Weeks Lived</span>
+          <strong id="pb-total-weeks">0</strong>
+        </div>
+
+        <div class="pb-result-item">
+          <span>Total Months Lived</span>
+          <strong id="pb-total-months">0</strong>
+        </div>
+
+        <div class="pb-result-item">
+          <span>Born On</span>
+          <strong id="pb-weekday">-</strong>
+        </div>
+
+        <div class="pb-result-item">
+          <span>Next Birthday</span>
+          <strong id="pb-next-birthday">-</strong>
+        </div>
+
+        <div class="pb-result-item">
+          <span>Days Until Birthday</span>
+          <strong id="pb-countdown">0</strong>
+        </div>
+
+      </div>
+
+      <div class="pb-disclaimer">
+        Results are calculated based on the selected target date.
+        This tool is intended for general informational purposes.
+      </div>
+
+    </div>
+
+    <div class="pb-footer">
+      Powered by Pharma Basic | Free Online Calculator
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      const root = document.getElementById('pb-age-calculator');
+      if (!root || root.dataset.initialized) return;
+      root.dataset.initialized = 'true';
+
+      const dobInput = root.querySelector('#pb-dob');
+      const targetDateInput = root.querySelector('#pb-target-date');
+      const results = root.querySelector('#pb-results');
+      const error = root.querySelector('#pb-error');
+
+      const DAY = 86400000;
+
+      // Set default target date to today's local date
+      const now = new Date();
+      const todayString =
+        now.getFullYear() + '-' +
+        String(now.getMonth() + 1).padStart(2, '0') + '-' +
+        String(now.getDate()).padStart(2, '0');
+
+      targetDateInput.value = todayString;
+      dobInput.max = todayString;
+
+      function utcDate(year, month, day) {
+        return new Date(Date.UTC(year, month, day));
+      }
+
+      function addMonths(date, amount) {
+        const total = date.getUTCFullYear() * 12 +
+                      date.getUTCMonth() + amount;
+
+        const year = Math.floor(total / 12);
+        const month = total % 12;
+        const day = Math.min(
+          date.getUTCDate(),
+          new Date(Date.UTC(year, month + 1, 0)).getUTCDate()
+        );
+
+        return utcDate(year, month, day);
+      }
+
+      function formatDate(date) {
+        return date.toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+          timeZone: 'UTC'
+        });
+      }
+
+      function showError(message) {
+        error.textContent = message;
+        error.style.display = 'block';
+        results.style.display = 'none';
+      }
+
+      root.querySelector('#pb-calculate').addEventListener('click', function () {
+        error.style.display = 'none';
+
+        if (!dobInput.value) {
+          showError('Please select your date of birth.');
+          return;
+        }
+
+        if (!targetDateInput.value) {
+          showError('Please select a target calculation date.');
+          return;
+        }
+
+        const dobParts = dobInput.value.split('-').map(Number);
+        const birth = utcDate(dobParts[0], dobParts[1] - 1, dobParts[2]);
+
+        const targetParts = targetDateInput.value.split('-').map(Number);
+        const target = utcDate(targetParts[0], targetParts[1] - 1, targetParts[2]);
+
+        if (birth > target) {
+          showError('Date of birth cannot be after the target calculation date.');
+          return;
+        }
+
+        // Calculate completed calendar months.
+        let totalMonths =
+          (target.getUTCFullYear() - birth.getUTCFullYear()) * 12 +
+          target.getUTCMonth() - birth.getUTCMonth();
+
+        let anniversary = addMonths(birth, totalMonths);
+
+        if (anniversary > target) {
+          totalMonths--;
+          anniversary = addMonths(birth, totalMonths);
+        }
+
+        const years = Math.floor(totalMonths / 12);
+        const months = totalMonths % 12;
+        const days = Math.round((target - anniversary) / DAY);
+
+        // Total elapsed days.
+        const totalDays = Math.round((target - birth) / DAY);
+        const totalWeeks = Math.floor(totalDays / 7);
+
+        // Birthday countdown relative to the target date.
+        let nextBirthday = utcDate(
+          target.getUTCFullYear(),
+          birth.getUTCMonth(),
+          birth.getUTCDate()
+        );
+
+        if (nextBirthday < target || nextBirthday.getTime() === target.getTime()) {
+          nextBirthday = utcDate(
+            target.getUTCFullYear() + 1,
+            birth.getUTCMonth(),
+            birth.getUTCDate()
+          );
+        }
+
+        const countdown = Math.round((nextBirthday - target) / DAY);
+
+        const weekdays = [
+          'Sunday', 'Monday', 'Tuesday', 'Wednesday',
+          'Thursday', 'Friday', 'Saturday'
+        ];
+
+        root.querySelector('#pb-years').textContent = years;
+        root.querySelector('#pb-months').textContent = months;
+        root.querySelector('#pb-days').textContent = days;
+
+        root.querySelector('#pb-total-days').textContent =
+          totalDays.toLocaleString('en-IN');
+
+        root.querySelector('#pb-total-weeks').textContent =
+          totalWeeks.toLocaleString('en-IN');
+
+        root.querySelector('#pb-total-months').textContent =
+          totalMonths.toLocaleString('en-IN');
+
+        root.querySelector('#pb-weekday').textContent =
+          weekdays[birth.getUTCDay()];
+
+        root.querySelector('#pb-next-birthday').textContent =
+          formatDate(nextBirthday);
+
+        root.querySelector('#pb-countdown').textContent =
+          countdown.toLocaleString('en-IN') + ' days';
+
+        root.querySelector('#pb-target-label').textContent = 
+          `as of ${formatDate(target)}`;
+
+        results.style.display = 'block';
+      });
+
+      root.querySelector('#pb-reset').addEventListener('click', function () {
+        dobInput.value = '';
+        targetDateInput.value = todayString;
+        results.style.display = 'none';
+        error.style.display = 'none';
+      });
+
+    })();
+  </script>
+</div>
